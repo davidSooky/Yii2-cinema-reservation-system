@@ -78,7 +78,7 @@ class Screening extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'movie_id' => 'Movie',
-            'day' => 'Screening day',
+            'day' => 'Date',
             'start' => 'Start',
             'end' => 'End',
             'price' => 'Ticket price',
@@ -103,8 +103,12 @@ class Screening extends \yii\db\ActiveRecord
         return Movie::find()->where("id=:id", ["id" => $id])->one()->title;
     }
 
+    public function getDuration($id) {
+        return Movie::find($id)->one()->duration;
+    }
+
     public function getPrice($numOfTickets = null) {
-        if(!$numOfTickets) {
+        if($numOfTickets === null) {
             return Yii::$app->formatter->asCurrency($this->price, "EUR");
         }
 

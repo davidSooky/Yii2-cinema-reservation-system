@@ -16,7 +16,10 @@ $columns = [
     'day',
     'start',
     'end',
-    "price",
+    [
+        "attribute" => "price",
+        "content" => fn($model) => $model->getPrice()
+    ],
     [
         "class" => ActionColumn::class,
         "template" => "{site/screening}",

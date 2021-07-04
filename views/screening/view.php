@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Screening */
@@ -47,6 +46,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'model' => $model,
                 'attributes' => [
                     'day',
+                    [
+                        "label" => "Duration",
+                        "value" => fn($model) => $model->getDuration($model->movie_id) . " minutes"
+                    ],
                     'start',
                     'end',
                     [
@@ -59,7 +62,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <h6 class="my-2 text-muted" id="seat-summary">
                 <?php 
                     if (!$isGuest) {
-                        echo "Tickets sold: " . $numOfTickets . "/40";
+                        echo "Tickets sold: " . $numOfTickets . " / 40";
                     } else {
                         echo "Number of selected seats: ";
                     }
@@ -76,5 +79,4 @@ $this->params['breadcrumbs'][] = $this->title;
 
         </div>
     </div>
-    
 </div>

@@ -44,7 +44,8 @@ class ScreeningQuery extends \yii\db\ActiveQuery
         $query = $this
             ->where("movie_id=:id", [":id" => $id])
             ->andWhere([">=", "day", Yii::$app->formatter->asDate('now', 'yyyy-MM-dd')])
-            ->andWhere([">", "start", date("H:i", time())]);
+            ->andWhere([">", "start", date("H:i", strtotime("+ 1 hour", time()))])
+            ->orderBy(["day" => SORT_ASC]);
 
         return $query;
     }

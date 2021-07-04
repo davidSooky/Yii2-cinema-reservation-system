@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Ticket;
+use app\models\TicketSearch;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -35,12 +36,15 @@ class TicketController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Ticket::find(),
-        ]);
+        $searchModel = new TicketSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        // $dataProvider = new ActiveDataProvider([
+        //     'query' => Ticket::find(),
+        // ]);
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
+            "searchModel" => $searchModel
         ]);
     }
 

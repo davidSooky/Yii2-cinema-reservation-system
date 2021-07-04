@@ -15,15 +15,20 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        "filterModel" => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             [
                 'attribute' => 'movie_id',
+                "label" => "Movie",
                 'content' => function ($model) {
                     $screening = $model->screening;
                     return $screening->getMovieTitle($screening->movie_id);
                 }
             ],
+            "screening.day",
+            "screening.start",
+            "screening.end",
             'seat',
             'name',
             'phone_num',
