@@ -11,6 +11,10 @@ use app\models\Ticket;
  */
 class TicketSearch extends Ticket
 {
+
+    public $start;
+    public $end;
+    public $day;
     /**
      * {@inheritdoc}
      */
@@ -18,7 +22,7 @@ class TicketSearch extends Ticket
     {
         return [
             [['id', 'screening_id'], 'integer'],
-            [['seat', 'name', 'phone_num', 'email'], 'safe'],
+            [['seat', 'name', 'phone_num', 'email', "start", "end", "day"], 'safe'],
         ];
     }
 
@@ -40,7 +44,7 @@ class TicketSearch extends Ticket
      */
     public function search($params)
     {
-        $query = Ticket::find();
+        $query = Ticket::find()->joinWith("screening");
 
         // add conditions that should always apply here
 
@@ -64,6 +68,9 @@ class TicketSearch extends Ticket
 
         $query->andFilterWhere(['like', 'seat', $this->seat])
             ->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'screening.start', $this->start])
+            ->andFilterWhere(['like', 'screening.end', $this->end])
+            ->andFilterWhere(['like', 'screening.day', $this->day])
             ->andFilterWhere(['like', 'phone_num', $this->phone_num])
             ->andFilterWhere(['like', 'email', $this->email]);
 

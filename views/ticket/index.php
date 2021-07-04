@@ -21,18 +21,30 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'movie_id',
                 "label" => "Movie",
-                'content' => function ($model) {
+                'value' => function ($model) {
                     $screening = $model->screening;
                     return $screening->getMovieTitle($screening->movie_id);
                 }
             ],
-            "screening.day",
-            "screening.start",
-            "screening.end",
-            'seat',
-            'name',
-            'phone_num',
-            'email:email',
+            [
+                "label" => "Date",
+                "attribute" => "day",
+                "value" => fn($model) => $model->screening->day
+            ],
+            [
+                "label" => "Start",
+                "attribute" => "start",
+                "value" => fn($model) => $model->screening->start
+            ],
+            [
+                "label" => "End",
+                "attribute" => "end",
+                "value" => fn($model) => $model->screening->end
+            ],
+                'seat',
+                'name',
+                'phone_num',
+                'email:email',
         ],
     ]); ?>
 
