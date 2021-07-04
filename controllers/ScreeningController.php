@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use yii\filters\AccessControl;
 use app\models\Screening;
+use app\models\Ticket;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -85,7 +86,7 @@ class ScreeningController extends Controller
 
         return $this->render('view', [
             'model' => $model,
-            "numOfTickets" => $numOfTickets
+            "numOfTickets" => $numOfTickets,
         ]);
     }
 

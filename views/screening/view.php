@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="row">
         <div class="col-sm-9">
-            <?= $this->render("_screen", ["reservedSeats" => $reservedSeats]); ?>
+            <?= $this->render("_screen", ["reservedSeats" => $reservedSeats, "tickets" => $tickets ?? null]); ?>
         </div>
         <div class="col-sm-3">
             <div class="buttons m-2">

@@ -96,16 +96,20 @@ class SiteController extends Controller
     public function actionScreening($id)
     {
         $model = Screening::findOne($id);
-        $tickets = $model->getNumOfTickets();
+        $numOfTickets = $model->getNumOfTickets();
+
+        $tickets = new Ticket();
 
         if(Yii::$app->request->post())
         {
             $postData = Yii::$app->request->post();
+            $userInfo = $postData["Ticket"];
 
             $seats = $postData["seats"] ?? null;
-            $name = $postData["name"];
-            $email = $postData["email"];
-            $phone = $postData["phone_num"];
+
+            $name = $userInfo["name"];
+            $email = $userInfo["email"];
+            $phone = $userInfo["phone_num"];
 
             if ($seats) {
                 foreach ($seats as $seat) {
@@ -129,6 +133,7 @@ class SiteController extends Controller
 
         return $this->render('//screening/view', [
             "model" => $model,
+            "numOfTickets" => $numOfTickets,
             "tickets" => $tickets
         ]);
     }

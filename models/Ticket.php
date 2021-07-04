@@ -35,8 +35,11 @@ class Ticket extends \yii\db\ActiveRecord
         return [
             [['screening_id', 'seat', 'name', 'phone_num', 'email'], 'required'],
             [['screening_id'], 'integer'],
-            [['seat'], 'string', 'max' => 10],
-            [['name', 'phone_num', 'email'], 'string', 'max' => 30],
+            ["email", "email"],
+            ["name", "match", "pattern" => '/^[a-zA-Z\s]+$/', "message" => "Invalid characters in name."],
+            [['name', 'email'], 'string', 'max' => 30],
+            ["phone_num", "string", "max" => 10],
+            ["phone_num", "match", "pattern" => '/^[0-9]+$/', "message" => "Phone number should contain only numbers."],
             [['screening_id'], 'exist', 'skipOnError' => true, 'targetClass' => Screening::class, 'targetAttribute' => ['screening_id' => 'id']],
         ];
     }

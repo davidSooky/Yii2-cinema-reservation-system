@@ -21,7 +21,7 @@ function reservationCheck($value, $isGuest, $reservedSeats) {
 <div class="form-group">
     <?php
       if ($isGuest) {
-        echo $this->render("//ticket/_form.php");
+        echo $this->render("//ticket/_form.php", ["tickets" => $tickets ?? null, "form" => $form]);
       }
     ?>
 </div>
