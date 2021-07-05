@@ -16,7 +16,7 @@ $columns = [
     ["class" => SerialColumn::class],
     [
         'attribute' => 'movie_id',
-        'content' => fn($model) => $model->getMovieTitle($model->movie_id)
+        'content' => fn($model) => $model->movie->title
     ],
     'day',
     'start',

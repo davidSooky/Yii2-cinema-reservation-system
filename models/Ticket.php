@@ -69,11 +69,6 @@ class Ticket extends \yii\db\ActiveRecord
         return $this->hasOne(Screening::class, ['id' => 'screening_id']);
     }
 
-    public function getMovie()
-    {
-        return $this->getScreening()->asArray()->movie_id;
-    }
-
     /**
      * {@inheritdoc}
      * @return \app\models\query\TicketQuery the active query used by this AR class.

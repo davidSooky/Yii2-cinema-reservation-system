@@ -99,12 +99,8 @@ class Screening extends \yii\db\ActiveRecord
         return $this->hasMany(Ticket::class, ["screening_id" => "id"])->count();
     }
 
-    public function getExistingMovieTitles() {
-        return Movie::find()->select(("id, title"))->asArray()->all();
-    }
-
-    public function getMovieTitle($id) {
-        return Movie::find()->where("id=:id", ["id" => $id])->one()->title;
+    public function getMovie() {
+        return $this->hasOne(Movie::class, ["id" => "movie_id"]);
     }
 
     public function getDuration($id) {
@@ -117,6 +113,10 @@ class Screening extends \yii\db\ActiveRecord
         }
 
         return Yii::$app->formatter->asCurrency(($this->price * $numOfTickets), "EUR");
+    }
+
+    public function getExistingMovieTitles() {
+        return Movie::find()->select(("id, title"))->asArray()->all();
     }
 
     public function save($runValidation = true, $attributeNames = null) {

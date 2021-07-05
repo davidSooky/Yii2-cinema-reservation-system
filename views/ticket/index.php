@@ -23,10 +23,10 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 "label" => "Movie",
                 'attribute' => 'movie_id',
-                'value' => function ($model) {
-                    $screening = $model->screening;
-                    return $screening->getMovieTitle($screening->movie_id);
-                }
+                'value' => fn($model) => $model->screening->movie->title
+                // "label" => "Movie",
+                // "attribute" => "movie",
+                // "value" => fn($model) => $model->screening->movie->title
             ],
             [
                 "label" => "Date",

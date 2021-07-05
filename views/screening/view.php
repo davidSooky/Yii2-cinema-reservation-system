@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Screening */
 
-$this->title = $model->getMovieTitle($model->movie_id);
+$this->title = $model->movie->title;
 $isGuest = Yii::$app->user->isGuest;
 $reservedSeats = array_keys($model->reservedSeats);
 
