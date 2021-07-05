@@ -73,8 +73,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php 
                     if (!$isGuest) {
                         echo "Income: " . $model->getPrice($numOfTickets);
-                    }  
+                    } else {
+                        echo "Payable amount: ";
+                    }
                 ?>
+                <span class="payment-summary" data-price="<?= $model->price ?>"><?= !$isGuest ? null : "EUR 0.00" ; ?></span>
             </h6>
 
         </div>

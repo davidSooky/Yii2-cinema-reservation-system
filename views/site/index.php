@@ -6,7 +6,9 @@ use yii\widgets\ListView;
 
 $this->title = Yii::$app->name . " | Main";
 ?>
-    <h2>Currently available movies</h2>
+
+    <h2 class="my-3">Currently available movies</h2>
+
     <?= 
         ListView::widget([
             "dataProvider" => $dataProvider,

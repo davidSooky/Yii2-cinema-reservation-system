@@ -37,6 +37,7 @@ $columns = [
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?= GridView::widget([
+        "emptyText" => "No upcoming screenings for this movie.",
         'dataProvider' => $dataProvider,
         'columns' => $columns
     ]); ?>
