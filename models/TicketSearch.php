@@ -15,6 +15,7 @@ class TicketSearch extends Ticket
     public $start;
     public $end;
     public $day;
+    public $movie;
 
     /**
      * {@inheritdoc}
@@ -23,7 +24,7 @@ class TicketSearch extends Ticket
     {
         return [
             [['id', 'screening_id'], 'integer'],
-            [['seat', 'name', 'phone_num', 'email', "start", "end", "day"], 'safe'],
+            [['seat', 'name', 'phone_num', 'email', "start", "end", "day", "movie"], 'safe'],
         ];
     }
 
@@ -46,6 +47,7 @@ class TicketSearch extends Ticket
     public function search($params)
     {
         $query = Ticket::find()->joinWith("screening");
+        $query->join("LEFT OUTER JOIN", "movie", "screening.movie_id = movie.id");
 
         // add conditions that should always apply here
 
@@ -72,6 +74,7 @@ class TicketSearch extends Ticket
             ->andFilterWhere(['like', 'screening.start', $this->start])
             ->andFilterWhere(['like', 'screening.end', $this->end])
             ->andFilterWhere(['like', 'screening.day', $this->day])
+            ->andFilterWhere(['like', 'movie.title', $this->movie])
             ->andFilterWhere(['like', 'phone_num', $this->phone_num])
             ->andFilterWhere(['like', 'email', $this->email]);
 

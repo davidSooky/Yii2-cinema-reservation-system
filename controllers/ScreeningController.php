@@ -62,7 +62,7 @@ class ScreeningController extends Controller
     public function actionAll()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Screening::find(),
+            'query' => Screening::find()->orderBy(["day" => SORT_DESC]),
         ]);
 
         $title = "Screenings";
@@ -122,9 +122,10 @@ class ScreeningController extends Controller
     {
         $model = $this->findModel($id);
         $movies = $model->getExistingMovieTitles();
-        $title = $model->getMovieTitle($model->movie_id) . " / " . $model->day;
+        $title = $model->movie->title . " / " . $model->day;
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash("success", "Screening has been updated successfully.");
             return $this->redirect(['all']);
         }
 
@@ -145,6 +146,7 @@ class ScreeningController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
+        Yii::$app->session->setFlash("success", "Screening has been deleted successfully.");
 
         return $this->redirect(['all']);
     }

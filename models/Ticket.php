@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use app\models\Screening;
+use app\models\Movie;
 
 /**
  * This is the model class for table "ticket".
@@ -67,6 +68,10 @@ class Ticket extends \yii\db\ActiveRecord
     public function getScreening()
     {
         return $this->hasOne(Screening::class, ['id' => 'screening_id']);
+    }
+
+    public function getMovie() {
+        return $this->screening->hasOne(Movie::class, ["id" => "movie_id"]);
     }
 
     /**

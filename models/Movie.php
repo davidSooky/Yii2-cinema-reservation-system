@@ -89,7 +89,7 @@ class Movie extends \yii\db\ActiveRecord
                 unlink($posterPath);
             }
 
-            Yii::$app->session->setFlash("success", "Movies deleted successfully.");
+            Yii::$app->session->setFlash("success", "Movie deleted successfully.");
             return parent::beforeDelete();
         }
     }

@@ -50,21 +50,24 @@ class ScreeningQuery extends \yii\db\ActiveQuery
         return $query;
     }
 
-    public function actualScreening($day, $start) {
-        $screenings = $this->select("start, end")->where("day=:day", [":day" => $day])->asArray()->all();
+    public function actualScreening($day, $start, $id) {
+        $screenings = $this->select("id, start, end")->where("day=:day", [":day" => $day])->asArray()->all();
 
         foreach($screenings as $screening) {
-            if(strtotime($screening["start"]) <= strtotime($start) && strtotime($screening["end"]) >= strtotime($start)) {
-                return true;
+            if($screening["id"] != $id) {
+                if(strtotime($screening["start"]) <= strtotime($start) && strtotime($screening["end"]) >= strtotime($start)) {
+                    return true;
+                }
             }
         }
 
         return false;
     }
 
-    public function getLastScreening($day, $start) {
+    public function getLastScreening($day, $start, $id) {
         return $this
             ->where("day=:day", [":day" => $day])
+            ->andWhere(["not", ["id" => $id]])
             ->andWhere(["between", "end", date("H:i", strtotime("- 1 hour", strtotime($start))), $start])
             ->asArray()
             ->all();

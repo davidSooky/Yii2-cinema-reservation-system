@@ -45,11 +45,11 @@ class Screening extends \yii\db\ActiveRecord
     }
 
     public function validateStart($attribute) {
-        if ($this->find()->actualScreening($this->day, $this->$attribute)) {
+        if ($this->find()->actualScreening($this->day, $this->$attribute, $this->id)) {
             $this->addError($attribute, "Only one screening at a time.");
         }
 
-        if($this->find()->getLastScreening($this->day, $this->$attribute)) {
+        if($this->find()->getLastScreening($this->day, $this->$attribute, $this->id)) {
             $this->addError($attribute, "There must be at least 1 hour gap between screenings.");
         }
 

@@ -22,11 +22,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
             [
                 "label" => "Movie",
-                'attribute' => 'movie_id',
-                'value' => fn($model) => $model->screening->movie->title
-                // "label" => "Movie",
-                // "attribute" => "movie",
-                // "value" => fn($model) => $model->screening->movie->title
+                "attribute" => "movie",
+                "value" => "movie.title"
             ],
             [
                 "label" => "Date",
@@ -49,6 +46,5 @@ $this->params['breadcrumbs'][] = $this->title;
                 'email:email',
         ],
     ]); ?>
-
 
 </div>
