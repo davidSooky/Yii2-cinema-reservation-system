@@ -28,18 +28,13 @@ $columns = [
     [
         "label" => "Seats reserved",
         "value" => fn($model) => $model->getNumOfTickets() . "/40"
-    ]
+    ],
+    [
+        'class' => ActionColumn::class,
+        "header" => "View",
+        "template" =>"{view}"
+    ] 
 ];
-
-if($isMainPage) {
-    $columns = [
-        ...$columns,
-        [
-            'class' => ActionColumn::class,
-            "template" =>"{view}"
-        ] 
-    ];
-}
 
 ?>
 <div class="screening-index">

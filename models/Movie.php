@@ -84,7 +84,7 @@ class Movie extends \yii\db\ActiveRecord
             return false;
 
         } else {
-            $posterPath = Yii::getAlias("@storage/posters/" . $this->title . ".jpg");
+            $posterPath = Yii::getAlias("@storage/posters/" . $this->clean($this->title) . ".jpg");
             if (file_exists($posterPath)) {
                 unlink($posterPath);
             }
@@ -96,7 +96,11 @@ class Movie extends \yii\db\ActiveRecord
 
     public function getPosterLink()
     {
-        return Yii::$app->params["storageURL"] . $this->clean($this->title) . ".jpg";
+        $localStorage = Yii::getAlias("@storage/posters/" . $this->clean($this->title) . ".jpg");
+        $storage = Yii::$app->params["storageURL"];
+        $file = $storage . $this->clean($this->title) . ".jpg";
+
+        return file_exists($localStorage) ? $file : $storage . "default.jpg";
     }
 
     public function getMinutes() {
