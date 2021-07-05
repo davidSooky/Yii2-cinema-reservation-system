@@ -45,6 +45,14 @@ class Screening extends \yii\db\ActiveRecord
     }
 
     public function validateStart($attribute) {
+        if ($this->find()->actualScreening($this->day, $this->$attribute)) {
+            $this->addError($attribute, "Only one screening at a time.");
+        }
+
+        if($this->find()->getLastScreening($this->day, $this->$attribute)) {
+            $this->addError($attribute, "There must be at least 1 hour gap between screenings.");
+        }
+
         if (!in_array(substr($this->$attribute, -2), $this->minutes)) {
             $this->addError($attribute, "Screening can start only at (00, 15, 30, 45) minutes");
         } 
@@ -61,10 +69,6 @@ class Screening extends \yii\db\ActiveRecord
     }
 
     public function checkIfInPast($attribute) {
-        if ($this->find()->actualScreening($this->$attribute)) {
-            $this->addError($attribute, "Only one screening at a time.");
-        }
-
         if (strtotime($this->$attribute . $this->start) < time()) {
             $this->addError($attribute, "Screening can not start in the past.");
         }

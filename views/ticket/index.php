@@ -13,14 +13,16 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
+    <?= Html::a("Reset filter", ["index"], ['class' => 'btn btn-success']); ?>
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         "filterModel" => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             [
-                'attribute' => 'movie_id',
                 "label" => "Movie",
+                'attribute' => 'movie_id',
                 'value' => function ($model) {
                     $screening = $model->screening;
                     return $screening->getMovieTitle($screening->movie_id);

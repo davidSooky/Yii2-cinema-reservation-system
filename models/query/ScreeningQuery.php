@@ -50,15 +50,23 @@ class ScreeningQuery extends \yii\db\ActiveQuery
         return $query;
     }
 
-    public function actualScreening($day) {
-        $start = Yii::$app->request->post()["start"];
+    public function actualScreening($day, $start) {
         $screenings = $this->select("start, end")->where("day=:day", [":day" => $day])->asArray()->all();
 
         foreach($screenings as $screening) {
-            if(strtotime($screening["start"]) < strtotime($start) && strtotime($screening["end"]) > strtotime($start)) {
+            if(strtotime($screening["start"]) <= strtotime($start) && strtotime($screening["end"]) >= strtotime($start)) {
                 return true;
             }
         }
+
         return false;
+    }
+
+    public function getLastScreening($day, $start) {
+        return $this
+            ->where("day=:day", [":day" => $day])
+            ->andWhere(["between", "end", date("H:i", strtotime("- 1 hour", strtotime($start))), $start])
+            ->asArray()
+            ->all();
     }
 }

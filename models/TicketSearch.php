@@ -15,6 +15,7 @@ class TicketSearch extends Ticket
     public $start;
     public $end;
     public $day;
+    // public $movie;
     /**
      * {@inheritdoc}
      */
